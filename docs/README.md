@@ -1,6 +1,9 @@
 A place for miscellaneous items that could be useful for this project.
 They can be moved to other directories or removed as needed. 
 
+Manufacturer's website:  
+https://www.tefal.com/instructions-for-use/csp/2100033535
+
 Scale replacement parts are more than the price of a new scale:  
 https://fixpart.co.uk/product/groupe-seb-tsv15041lc-sensor-scale  
 
