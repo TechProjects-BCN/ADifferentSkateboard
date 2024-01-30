@@ -7,6 +7,9 @@ https://www.instructables.com/Arduino-Bathroom-Scale-With-50-Kg-Load-Cells-and-H
 How to wire up 1 or 2 or 4 load cells (note the for 1 cell you need matched 1% accuracy resistors):  
 https://circuitjournal.com/50kg-load-cells-with-HX711
 
+Load cell mounting plate from Thingiverse used in article above:  
+https://www.thingiverse.com/thing:2624188
+
 SparkFun HX711 Load Cell Amplifier ($10.95; this costs more than others but the guide docs are good):  
 https://www.sparkfun.com/products/13879
 
