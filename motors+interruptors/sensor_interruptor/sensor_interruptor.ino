@@ -31,7 +31,7 @@ void setup() {
 void forward() { 
   digitalWrite (IN1, LOW);
   digitalWrite (IN2, HIGH);
-  analogWrite (ENA, vel);
+  analogWrite (ENA, abs(vel));
   digitalWrite (IN3, LOW);
   digitalWrite (IN4, HIGH);
   analogWrite (ENB, vel);
@@ -39,7 +39,7 @@ void forward() {
  void backward (){
    digitalWrite (IN1, HIGH);
    digitalWrite (IN2,LOW );
-   analogWrite (ENA, vel);
+   analogWrite (ENA, abs(vel) );
    digitalWrite (IN3, HIGH);
    digitalWrite (IN4, LOW);
    analogWrite (ENB, vel);  
@@ -59,16 +59,23 @@ void loop() {
   Serial.println(vel); //print velocity
   Serial.println (valor1); //print white button state
   Serial.println (valor2); //print black button state
-    if (valor1 == LOW && vel <= 255){ //if white button is pressed, and velocity is less than 255(maximum)
-      vel = vel + 1; //increase veocity by 1
-      delay (100); //wait 0.1 seconds
-      } //when the button is not pressed or the velocity reaches 255 it stops incresing
-    if (valor2 == LOW && vel <= -255){ //if black button is pressed and velocity is less than 255(maximum)
-      vel = vel-1; //decrease velocity by 1
+   
+    if (valor2 == LOW && vel > -255){ //if black button is pressed and velocity is less than 255(maximum)
+      vel = vel-2; //decrease velocity by 1
       delay (100); //wait 0.1 seconds
       }
 
-  forward();
+    if (valor1 == LOW && vel <= 255){ //if white button is pressed, and velocity is less than 255(maximum)
+      vel = vel + 2; //increase veocity by 1
+      delay (100); //wait 0.1 seconds
+      } //when the button is not pressed or the velocity reaches 255 it stops incresing
+
+  if (vel>0){
+    forward();
+  }
+  if (vel<0){
+    backward();
+  }
   // if (valor1 == HIGH && valor2 == LOW){ //if button white is pressed and button black is not pressed, move forward
   //   digitalWrite (ledverd, HIGH);
   //   digitalWrite (ledvermell, LOW);
@@ -88,4 +95,6 @@ void loop() {
   //   parar();  
   //}
   //sempre endavant i només canvia la velocitat positiva (endavant) negativa (endarrere). No van falta les altres funcions.
+  //la velocitat (en el analogWrite)no pot ser negativa --> map per convertir la velocitat negativa entre 0 i 50% i la positiva entre 50% i 100%)
+  //potser no fa falta perquè no controlem un motor sinó uns leds. No fa falta la funció forward ni backwards perquè no tenen utilitat. Afegir el codi de la hakato per convertir la velocitat en codi de colors.
 }
