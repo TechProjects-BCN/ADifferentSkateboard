@@ -14,6 +14,18 @@ int IN4 = 11;
 
 int vel = 0;
 
+#include <Adafruit_NeoPixel.h>
+#define PIN        13
+#define NUMPIXELS 2
+Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
+#define DELAYVAL 100 // Time (in milliseconds) to pause between pixels
+
+int  R(0);
+int  G(0);
+int  B(0);
+int i = 0;
+int FACTOR = 3;
+
 void setup() {
   pinMode (interruptor1, INPUT);
   pinMode (interruptor2, INPUT);
@@ -65,7 +77,7 @@ void loop() {
       delay (100); //wait 0.1 seconds
       }
 
-    if (valor1 == LOW && vel <= 255){ //if white button is pressed, and velocity is less than 255(maximum)
+    if (valor1 == LOW && vel < 255){ //if white button is pressed, and velocity is less than 255(maximum)
       vel = vel + 2; //increase veocity by 1
       delay (100); //wait 0.1 seconds
       } //when the button is not pressed or the velocity reaches 255 it stops incresing
@@ -76,25 +88,75 @@ void loop() {
   if (vel<0){
     backward();
   }
-  // if (valor1 == HIGH && valor2 == LOW){ //if button white is pressed and button black is not pressed, move forward
-  //   digitalWrite (ledverd, HIGH);
-  //   digitalWrite (ledvermell, LOW);
-  //   Serial.println("Endavant");
-  //   forward();
-  // }
-  // else if (valor1 == LOW && valor2 == HIGH){ //if button white is not pressed and button black is pressed, move backward
-  //   digitalWrite(ledverd, LOW);
-  //   digitalWrite (ledvermell, HIGH);
-  //   Serial.println("Endarrere");
-  //   backward();
-  // }
-  // else{ 
-  //   digitalWrite(ledverd, LOW);
-  //   digitalWrite (ledvermell, LOW);
-  //   Serial.println ("Parar"); 
-  //   parar();  
-  //}
-  //sempre endavant i només canvia la velocitat positiva (endavant) negativa (endarrere). No van falta les altres funcions.
-  //la velocitat (en el analogWrite)no pot ser negativa --> map per convertir la velocitat negativa entre 0 i 50% i la positiva entre 50% i 100%)
-  //potser no fa falta perquè no controlem un motor sinó uns leds. No fa falta la funció forward ni backwards perquè no tenen utilitat. Afegir el codi de la hakato per convertir la velocitat en codi de colors.
+  if ((vel <= -255 and vel > -200)){ //1 vermell
+      R = 255;
+      G = 0; 
+      B = 0;
+      }
+
+  else if ((vel > -200 && vel <= -150 )){ //2 taronja
+      R = 255;
+      G = 128; 
+      B = 0;
+
+      }
+  else if ((vel <= -150 and vel > -100)){ //3 yellow
+      R = 255;
+      G = 255; 
+      B = 0;
+
+      }
+  else if ((vel <= -100 and vel > -50)){ //4 light green
+      R = 128;
+      G = 255; 
+      B = 0;
+
+      }
+  else if ((vel <= -50 and vel > 0)){ //5 green
+      R = 0;
+      G = 255; 
+      B = 125;
+
+      }
+  else if ((vel <= 0 and vel > 50)){ //6 turquoise
+      R = 0;
+      G = 255; 
+      B = 255;
+  }
+
+ else if ((vel <= 50 and vel > 100)){ //7 light blue
+      R = 0;
+      G = 128; 
+      B = 255;
+      }
+
+ else if ((vel <= 100 and vel > 150)){ //8 blue
+      R = 0;
+      G = 0; 
+      B = 255;
+      }     
+
+ else if ((vel <= 150 and vel > 200)){ //9 purple
+      R = 125;
+      G = 0; 
+      B = 255;
+      }
+
+ else if ((vel <= 200 and vel > 255)){ //10 pink
+      R = 255;
+      G = 0; 
+      B = 255;
+      }
+ else { //14
+      R = 255;
+      G = 0; 
+      B = 0;
+      }
+
+  for(int i=0; i<NUMPIXELS; i++) {// For each pixel...
+    pixels.setPixelColor(i, pixels.Color(R/FACTOR, G/FACTOR, B/FACTOR)); 
+    pixels.show();
+  }
+  delay (DELAYVAL);
+
 }
