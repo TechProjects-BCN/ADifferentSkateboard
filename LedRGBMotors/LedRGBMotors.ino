@@ -1,7 +1,5 @@
 int interruptor1 = 5; //blanc
 int interruptor2 = 4; //negre
-int ledverd = 3;
-int ledvermell = 2;
 int valor1 = 0;
 int valor2 = 0;
 int ENA = 6;
@@ -14,23 +12,16 @@ int IN4 = 11;
 
 int vel = 0;
 
-#include <Adafruit_NeoPixel.h>
-#define PIN        13
-#define NUMPIXELS 2
-Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
-#define DELAYVAL 100 // Time (in milliseconds) to pause between pixels
-
-int  R(0);
-int  G(0);
-int  B(0);
+int  R = 13;
+int  G = 3;
+int  B = 2;
 //int i = 0;
 int FACTOR = 3;
 
 void setup() {
   pinMode (interruptor1, INPUT);
   pinMode (interruptor2, INPUT);
-  pinMode (ledverd, OUTPUT);
-  pinMode (ledvermell, OUTPUT);
+
   Serial.begin (9600);
   pinMode (ENA, OUTPUT);
   pinMode (ENB, OUTPUT);
@@ -38,6 +29,9 @@ void setup() {
   pinMode (IN2, OUTPUT);
   pinMode (IN3, OUTPUT);
   pinMode (IN4, OUTPUT);
+  pinMode (R, OUTPUT);
+  pinMode (G, OUTPUT);
+  pinMode (B, OUTPUT);
   vel=0;
 }
 
@@ -150,10 +144,4 @@ void loop() {
     G = 0; 
     B = 0;
   }
-
-  for(int i=0; i<NUMPIXELS; i++) {// For each pixel...
-    pixels.setPixelColor(i, pixels.Color(R/FACTOR, G/FACTOR, B/FACTOR)); 
-    pixels.show();
-  }
-  delay (DELAYVAL);
 }
