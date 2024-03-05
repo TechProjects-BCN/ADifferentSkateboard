@@ -12,11 +12,17 @@ int IN4 = 11;
 
 int vel = 0;
 
-int  R = 13;
-int  G = 3;
-int  B = 2;
+int  ledR = 13;
+int  ledG = 3;
+int  ledB = 2;
+
+int R = 0;
+int G = 0;
+int B = 0;
+
+int intensitat = 0.5;
 //int i = 0;
-int FACTOR = 3;
+//int FACTOR = 3;
 
 void setup() {
   pinMode (interruptor1, INPUT);
@@ -29,9 +35,9 @@ void setup() {
   pinMode (IN2, OUTPUT);
   pinMode (IN3, OUTPUT);
   pinMode (IN4, OUTPUT);
-  pinMode (R, OUTPUT);
-  pinMode (G, OUTPUT);
-  pinMode (B, OUTPUT);
+  pinMode (ledR, OUTPUT);
+  pinMode (ledG, OUTPUT);
+  pinMode (ledB, OUTPUT);
   vel=0;
 }
 
@@ -95,46 +101,46 @@ void loop() {
     G = 128; 
     B = 0;
   }
-  else if ((vel <= -150 && vel > -100)){ //3 yellow
+  else if ((vel >= -150 && vel < -100)){ //3 yellow
     R = 255;
     G = 255; 
     B = 0;
   }
-  else if ((vel <= -100 && vel > -50)){ //4 light green
+  else if ((vel >= -100 && vel < -50)){ //4 light green
     R = 128;
     G = 255; 
     B = 0;
   }
-  else if ((vel <= -50 && vel > 0)){ //5 green
+  else if ((vel >= -50 && vel < 0)){ //5 green
     R = 0;
     G = 255; 
     B = 125;
   }
-  else if ((vel <= 0 && vel > 50)){ //6 turquoise
+  else if ((vel >= 0 && vel < 50)){ //6 turquoise
     R = 0;
     G = 255; 
     B = 255;
   }
 
- else if ((vel <= 50 && vel > 100)){ //7 light blue
+ else if ((vel >= 50 && vel < 100)){ //7 light blue
     R = 0;
     G = 128; 
     B = 255;
   }
 
- else if ((vel <= 100 && vel > 150)){ //8 blue
+ else if ((vel >= 100 && vel < 150)){ //8 blue
     R = 0;
     G = 0; 
     B = 255;
   }     
 
- else if ((vel <= 150 && vel > 200)){ //9 purple
+ else if ((vel >= 150 && vel < 200)){ //9 purple
     R = 125;
     G = 0; 
     B = 255;
   }
 
- else if ((vel <= 200 && vel > 255)){ //10 pink
+ else if ((vel >= 200 && vel < 255)){ //10 pink
     R = 255;
     G = 0; 
     B = 255;
@@ -144,4 +150,10 @@ void loop() {
     G = 0; 
     B = 0;
   }
+  color (R,G,B);
 }
+ void color (int R, int G, int B){
+    analogWrite(ledR, R);
+    analogWrite(ledG, G);
+    analogWrite(ledB, B); 
+  }
