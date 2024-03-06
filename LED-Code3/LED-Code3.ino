@@ -12,13 +12,20 @@ int IN4 = 11;
 
 int vel = 0;
 
-int  ledR = 13;
-int  ledG = 3;
-int  ledB = 2;
-
-int R = 0;
-int G = 0;
-int B = 0;
+int  R(0);
+int  G(0);
+int  B(0);
+int i = 0;
+int FACTOR = 3;
+#include <Adafruit_NeoPixel.h>
+#ifdef __AVR__
+#include <avr/power.h> // Required for 16 MHz Adafruit Trinket
+#endif
+#define PIN        6
+#define NUMPIXELS 15
+Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
+#define DELAYVAL 500 // Time (in milliseconds) to pause between pixels
+bool flag = false;
 
 int intensitat = 0.5;
 //int i = 0;
@@ -34,11 +41,9 @@ void setup() {
   pinMode (IN1, OUTPUT);
   pinMode (IN2, OUTPUT);
   pinMode (IN3, OUTPUT);
-  pinMode (IN4, OUTPUT);
-  pinMode (ledR, OUTPUT);
-  pinMode (ledG, OUTPUT);
-  pinMode (ledB, OUTPUT);
+  pinMode (IN4, OUTPUT); 
   vel=0;
+  pixels.begin();
 }
 
 void forward() { 
@@ -160,10 +165,12 @@ void loop() {
     G = 0; 
     B = 0;
   }
-  color (R,G,B);
-}
- void color (int R, int G, int B){
-    analogWrite(ledR, R);
-    analogWrite(ledG, G);
-    analogWrite(ledB, B); 
+
+    for(int i=0; i<NUMPIXELS; i++) { // For each pixel...
+
+    // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
+    // Here we're using a moderately bright green color:
+    pixels.setPixelColor(i, pixels.Color(R/FACTOR, G/FACTOR, B/FACTOR));
+    pixels.show();   // Send the updated pixel colors to the hardware.
   }
+}
