@@ -1,5 +1,5 @@
-int interruptor1 = 5; //blanc
-int interruptor2 = 4; //negre
+int interruptor1 = 4; //blanc
+int interruptor2 = 5; //negre
 int valor1 = 0;
 int valor2 = 0;
 int ENA = 6;
@@ -21,8 +21,8 @@ int FACTOR = 3;
 #ifdef __AVR__
 #include <avr/power.h> // Required for 16 MHz Adafruit Trinket
 #endif
-#define PIN        6
-#define NUMPIXELS 15
+#define PIN        12
+#define NUMPIXELS 2
 Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 #define DELAYVAL 500 // Time (in milliseconds) to pause between pixels
 bool flag = false;
@@ -125,11 +125,6 @@ void loop() {
     R = 0;
     G = 255; 
     B = 255;
-
-    delay (5000);
-    R = 0;
-    G = 0; 
-    B = 0;
   }
   else if ((vel > 0 && vel < 50)){ //6 turquoise
     R = 0;
